@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.clipboard-sync" path="/org/gnome/shell/extensions/clipboard-sync/">
+    <key name="peer-endpoint" type="s">
+      <default>'tcp://127.0.0.1:7100'</default>
+      <summary>Remote endpoint</summary>
+      <description>Remote endpoint in URI form (e.g. tcp://host:7100) that receives clipboard updates from this machine.</description>
+    </key>
+    <key name="listen-port" type="i">
+      <default>7100</default>
+      <summary>Server port</summary>
+      <description>Port to bind the built-in sync server that accepts remote clipboard updates.</description>
+    </key>
+    <key name="shared-secret" type="s">
+      <default>'change-me'</default>
+      <summary>Shared secret</summary>
+      <description>Shared secret used to authenticate clipboard update requests. Requests with a mismatched secret are ignored.</description>
+    </key>
+    <key name="poll-interval" type="i">
+      <default>5</default>
+      <summary>Polling interval (seconds)</summary>
+      <description>Interval in seconds between remote clipboard fetch attempts. Set to 0 to disable polling and rely solely on push notifications.</description>
+    </key>
+    <key name="sync-primary" type="b">
+      <default>false</default>
+      <summary>Sync primary selection</summary>
+      <description>Synchronize the primary selection (middle-click paste) in addition to the regular clipboard.</description>
+    </key>
+    <key name="node-id" type="s">
+      <default>''</default>
+      <summary>Unique node identifier</summary>
+      <description>Automatically generated identifier for this machine. Leave empty to let the extension generate a new identifier on first run.</description>
+    </key>
+  </schema>
+</schemalist>

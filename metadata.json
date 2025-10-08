@@ -1,0 +1,8 @@
+{
+  "uuid": "clipboard-sync@qweasd123tg",
+  "name": "Clipboard Sync",
+  "description": "Synchronize the GNOME clipboard between two machines over the network.",
+  "shell-version": ["44", "45", "46", "47", "48"],
+  "url": "https://github.com/Qweasd123tg/gnome-clipboard-sync/upload",
+  "settings-schema": "org.gnome.shell.extensions.clipboard-sync"
+}
