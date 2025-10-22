@@ -1,4 +1,4 @@
-# GNOME Clipboard Sync
+# GNOME Clipboard Sync v3
 
 Синхронизация буфера обмена между двумя компьютерами по локальной сети. Без танцев с бубном.
 
@@ -16,8 +16,8 @@
 
 ## Установка
 
-### Из официального каталога (скоро)
-Будет доступно на [extensions.gnome.org](https://extensions.gnome.org)
+### Из официального каталога
+https://extensions.gnome.org/extension/8673/clipboard-sync
 
 ### Вручную
 ```bash
