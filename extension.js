@@ -10,8 +10,6 @@ Gio._promisify(Gio.DataInputStream.prototype, 'read_line_async', 'read_line_fini
 Gio._promisify(Gio.OutputStream.prototype, 'write_all_async', 'write_all_finish');
 Gio._promisify(Gio.OutputStream.prototype, 'close_async', 'close_finish');
 
-const textDecoder = new TextDecoder();
-
 const SELECTION_KEYS = new Map([
     [St.ClipboardType.CLIPBOARD, 'CLIPBOARD'],
     [St.ClipboardType.PRIMARY, 'PRIMARY'],
@@ -20,7 +18,7 @@ const SELECTION_KEYS = new Map([
 export default class ClipboardSyncExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
-
+        this._textDecoder = new TextDecoder();
         this._clipboard = null;
         this._selectionSignalId = 0;
         this._suppressedSelections = new Set();
@@ -69,7 +67,8 @@ export default class ClipboardSyncExtension extends Extension {
         }
         this._clipboard = null;
         this._selectionSignalId = 0;
-
+        this._textDecoder = null;
+        this._settings = null;
         this._suppressedSelections.clear();
         this._latestState.clear();
         this._observedText.clear();
@@ -140,7 +139,7 @@ export default class ClipboardSyncExtension extends Extension {
             if (!line) {
                 return;
             }
-            const payloadText = textDecoder.decode(line);
+            const payloadText = this._textDecoder.decode(line);
             const payload = JSON.parse(payloadText);
             response = await this._handlePayload(payload);
         } catch (error) {
@@ -385,7 +384,7 @@ export default class ClipboardSyncExtension extends Extension {
                 const dataInput = new Gio.DataInputStream({ base_stream: connection.get_input_stream() });
                 const [line] = await dataInput.read_line_async(GLib.PRIORITY_DEFAULT, null);
                 if (line) {
-                    response = JSON.parse(textDecoder.decode(line));
+                    response = JSON.parse(this._textDecoder.decode(line));
                 }
             }
 
@@ -439,8 +438,9 @@ export default class ClipboardSyncExtension extends Extension {
             this._recordState(selection, response.text, response.timestamp, response.node);
         }
     }
-
-    _log(message) {
-        log(`[ClipboardSync] ${message}`);
-    }
+    _log(message, level = 'debug') {
+        const fn = console[level] || console.debug;
+        fn.call(console, `[ClipboardSync] ${message}`);
+ }
+ 
 }
