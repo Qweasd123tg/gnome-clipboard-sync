@@ -1,7 +1,7 @@
 'use strict';
 
-import Adw from 'gi://Adw?version=1';
-import Gtk from 'gi://Gtk?version=4.0';
+import Adw from 'gi://Adw';
+import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 export default class ClipboardSyncPreferences extends ExtensionPreferences {
@@ -68,8 +68,4 @@ export default class ClipboardSyncPreferences extends ExtensionPreferences {
         syncPrimaryRow.subtitle = 'Also synchronize the selection used for middle-click paste';
         generalGroup.add(syncPrimaryRow);
     }
-}
-
-function init() {
-    return new ClipboardSyncPreferences();
 }
